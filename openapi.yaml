@@ -1,0 +1,139 @@
+openapi: 3.0.3
+info:
+  title: VC Microservice Template
+  version: 0.1.0
+  description: >
+    Base API specification for Virtual Construction microservices.
+    This template exposes a health endpoint and a simple logs resource
+    to demonstrate routing, controllers and MongoDB integration.
+servers:
+  - url: http://localhost:8089
+    description: Local development (Docker)
+  - url: http://localhost:3000
+    description: Local development (npm start)
+
+paths:
+  /health:
+    get:
+      summary: Servce health check
+      description: Returns service status, useful for Docker/K8s probes.
+      responses:
+        "200":
+          description: Service is up
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+
+  /api:
+    get:
+      summary: Service info
+      description: Basic information about this microservice.
+      responses:
+        "200":
+          description: Service info
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServiceInfo'
+
+  /api/logs:
+    get:
+      summary: Get latest logs
+      description: Returns the most recent log entries (max 5 by default).
+      responses:
+        "200":
+          description: List of log entries
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Log'
+    post:
+      summary: Create a log entry
+      description: Creates a new log entry, useful for testing the template.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateLogRequest'
+      responses:
+        "201":
+          description: Log created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Log'
+        "400":
+          description: Invalid payload
+
+components:
+  schemas:
+    HealthResponse:
+      type: object
+      properties:
+        status:
+          type: string
+          example: ok
+        service:
+          type: string
+          example: vc-ms-template
+        timestamp:
+          type: string
+          format: date-time
+    ServiceInfo:
+      type: object
+      properties:
+        service:
+          type: string
+          example: vc-ms-template
+        version:
+          type: string
+          example: 0.1.0
+        message:
+          type: string
+          example: VC microservice template running
+    Log:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: 671ff45f2a38d3c307f3f5a1
+        level:
+          type: string
+          example: info
+        message:
+          type: string
+          example: Testing vc-ms-template 🚀
+        meta:
+          type: object
+          additionalProperties: true
+          example:
+            source: api
+            requestId: 1234
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time
+    CreateLogRequest:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          example: "Telemetry received from device XYZ"
+        level:
+          type: string
+          enum: [info, warn, error]
+          example: info
+        meta:
+          type: object
+          additionalProperties: true
+          example:
+            hwId: "DEADBEEFFEED"
+            measurementPointId: "MP-SOLAR-ROOF-01"

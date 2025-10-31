@@ -1,0 +1,82 @@
+{
+  "info": {
+    "name": "VC Microservice Template",
+    "_postman_id": "f3c7a5b0-2fa6-4d7b-9f2f-1234567890ab",
+    "description": "Postman collection for the vc-ms-template service (health, info, logs).",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Health",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/health",
+          "host": ["{{baseUrl}}"],
+          "path": ["health"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Service Info",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/api",
+          "host": ["{{baseUrl}}"],
+          "path": ["api"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Get Logs",
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/logs",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "logs"]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Create Log",
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n  \"message\": \"Testing vc-ms-template from Postman\",\n  \"level\": \"info\",\n  \"meta\": { \"source\": \"postman\" }\n}"
+        },
+        "url": {
+          "raw": "{{baseUrl}}/api/logs",
+          "host": ["{{baseUrl}}"],
+          "path": ["api", "logs"]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8089"
+    }
+  ]
+}
