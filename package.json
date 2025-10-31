@@ -1,0 +1,30 @@
+{
+  "name": "vc-ms-template",
+  "version": "1.0.0",
+  "description": "Base template for Virtual Construction microservices — Node.js + Express + MongoDB setup with Docker, designed for fast development and consistent deployment across the VC ecosystem.",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/marsportillo/vc-ms-template.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/marsportillo/vc-ms-template/issues"
+  },
+  "homepage": "https://github.com/marsportillo/vc-ms-template#readme",
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "express": "^5.1.0",
+    "mongoose": "^8.19.2"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
